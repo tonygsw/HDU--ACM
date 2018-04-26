@@ -1,0 +1,59 @@
+/*
+    problem:hdu 1213
+    date:2017.9.3
+    author:gsw_甘世维
+    solve:并查集
+*/
+#include<stdio.h>
+#include<algorithm>
+#include<math.h>
+#include<string.h>
+#include<iostream>
+#include<cstdio>
+using namespace std;
+#define ll long long
+#define maxn 1005
+int pre[maxn];int n,m;
+void init()
+{
+    for(int i=1;i<maxn;i++)
+        pre[i]=i;
+}
+int findd(int x)
+{
+    int r=x;
+    while(r!=pre[r])
+        r=pre[r];
+    int i=x,j;
+    while(pre[i]!=r)
+    {
+        j=pre[i];
+        pre[i]=r;
+        i=j;
+    }
+    return r;
+}
+void combine(int a,int b)
+{
+    a=findd(a);b=findd(b);
+    if(a!=b)pre[a]=b;
+}
+int main()
+{
+    int t,x,y;
+    scanf("%d",&t);
+    while(t--)
+    {
+        init();
+        scanf("%d%d",&n,&m);
+        for(int i=0;i<m;i++)
+        {
+            scanf("%d%d",&x,&y);
+            combine(x,y);
+        }
+        int ans=0;
+        for(int i=1;i<=n;i++)
+            if(findd(i)==i)ans++;
+        cout<<ans<<endl;
+    }
+}

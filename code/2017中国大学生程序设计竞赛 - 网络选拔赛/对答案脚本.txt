@@ -1,0 +1,7 @@
+:1
+makedata.exe
+bbb.exe
+b.exe
+fc b.out ans.txt
+if %errorlevel% == 0 goto 1
+pause
